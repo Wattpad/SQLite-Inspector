@@ -8,6 +8,12 @@
 
 #import "Document.h"
 
+#import "DBBtreePage.h"
+#import "DBReader.h"
+#import "DBRecord.h"
+#import "DBTable.h"
+#import "DBTableEnumerator.h"
+
 @interface Document ()
 
 @end
@@ -28,7 +34,11 @@
 
 - (void)makeWindowControllers {
     // Override to return the Storyboard file name of the document.
-    [self addWindowController:[[NSStoryboard storyboardWithName:@"Main" bundle:nil] instantiateControllerWithIdentifier:@"Document Window Controller"]];
+    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
+    NSWindowController *controller = [storyboard instantiateControllerWithIdentifier:@"Document Window Controller"];
+    NSViewController *content = controller.contentViewController;
+    content.representedObject = self;
+    [self addWindowController:controller];
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
@@ -38,12 +48,23 @@
     return nil;
 }
 
-- (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
-    // Insert code here to read your document from the given data of the specified type. If outError != NULL, ensure that you create and set an appropriate error when returning NO.
-    // You can also choose to override -readFromFileWrapper:ofType:error: or -readFromURL:ofType:error: instead.
-    // If you override either of these, you should also override -isEntireFileLoaded to return NO if the contents are lazily loaded.
-    [NSException raise:@"UnimplementedMethod" format:@"%@ is unimplemented", NSStringFromSelector(_cmd)];
+- (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError * _Nullable __autoreleasing *)outError {
+    _reader = [[DBReader alloc] initWithFile:url.path];
+    if (!_reader) {
+        return NO;
+    }
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        for (DBTable *table in _reader.tables) {
+            NSLog(@"Table: %@", table.name);
+        }
+    });
+
     return YES;
+}
+
+- (BOOL)isEntireFileLoaded {
+    return NO;
 }
 
 @end

@@ -8,8 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class DBReader;
+
 @interface Document : NSDocument
 
+@property (nonatomic, strong, readonly) DBReader *reader;
 
 @end
-

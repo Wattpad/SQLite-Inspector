@@ -7,15 +7,30 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EAC8F58F1D383C0100CDAAE3 /* DBTable.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC8F58E1D383C0100CDAAE3 /* DBTable.m */; };
 		EACAF4071D2EB0ED001E1EDE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4061D2EB0ED001E1EDE /* AppDelegate.m */; };
 		EACAF40A1D2EB0ED001E1EDE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4091D2EB0ED001E1EDE /* main.m */; };
 		EACAF40D1D2EB0ED001E1EDE /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF40C1D2EB0ED001E1EDE /* ViewController.m */; };
 		EACAF4101D2EB0ED001E1EDE /* Document.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF40F1D2EB0ED001E1EDE /* Document.m */; };
 		EACAF4121D2EB0ED001E1EDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACAF4111D2EB0ED001E1EDE /* Assets.xcassets */; };
 		EACAF4151D2EB0ED001E1EDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EACAF4131D2EB0ED001E1EDE /* Main.storyboard */; };
+		EACAF41F1D2EB3F5001E1EDE /* DBHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF41E1D2EB3F5001E1EDE /* DBHeader.m */; };
+		EACAF4221D2EC2E6001E1EDE /* DBFreelistPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4211D2EC2E6001E1EDE /* DBFreelistPage.m */; };
+		EACAF4251D2EC304001E1EDE /* DBLockBytePage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4241D2EC304001E1EDE /* DBLockBytePage.m */; };
+		EACAF4281D2EC311001E1EDE /* DBBtreePage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4271D2EC311001E1EDE /* DBBtreePage.m */; };
+		EACAF42B1D2EC31E001E1EDE /* DBPayloadPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF42A1D2EC31E001E1EDE /* DBPayloadPage.m */; };
+		EACAF42E1D2EC329001E1EDE /* DBPointerMapPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF42D1D2EC329001E1EDE /* DBPointerMapPage.m */; };
+		EACAF4321D2EC913001E1EDE /* DBUnrecognizedPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4311D2EC913001E1EDE /* DBUnrecognizedPage.m */; };
+		EACAF4351D2ECA33001E1EDE /* DBReader.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4341D2ECA33001E1EDE /* DBReader.m */; };
+		EACAF4381D2EF642001E1EDE /* DBBtreeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4371D2EF642001E1EDE /* DBBtreeCell.m */; };
+		EAEC235B1D33EC0200BDCA45 /* DBVarint.c in Sources */ = {isa = PBXBuildFile; fileRef = EAEC23591D33EC0200BDCA45 /* DBVarint.c */; };
+		EAEC235E1D33ECFA00BDCA45 /* DBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEC235D1D33ECFA00BDCA45 /* DBRecord.m */; };
+		EAEC23611D35858F00BDCA45 /* DBTableEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEC23601D35858F00BDCA45 /* DBTableEnumerator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EAC8F58D1D383C0100CDAAE3 /* DBTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBTable.h; sourceTree = "<group>"; };
+		EAC8F58E1D383C0100CDAAE3 /* DBTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTable.m; sourceTree = "<group>"; };
 		EACAF4021D2EB0ED001E1EDE /* SQLite Inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SQLite Inspector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EACAF4051D2EB0ED001E1EDE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		EACAF4061D2EB0ED001E1EDE /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -27,6 +42,31 @@
 		EACAF4111D2EB0ED001E1EDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EACAF4141D2EB0ED001E1EDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EACAF4161D2EB0ED001E1EDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EACAF41C1D2EB175001E1EDE /* DBHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBHeader.h; sourceTree = "<group>"; };
+		EACAF41E1D2EB3F5001E1EDE /* DBHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHeader.m; sourceTree = "<group>"; };
+		EACAF4201D2EC2E6001E1EDE /* DBFreelistPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBFreelistPage.h; sourceTree = "<group>"; };
+		EACAF4211D2EC2E6001E1EDE /* DBFreelistPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBFreelistPage.m; sourceTree = "<group>"; };
+		EACAF4231D2EC304001E1EDE /* DBLockBytePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBLockBytePage.h; sourceTree = "<group>"; };
+		EACAF4241D2EC304001E1EDE /* DBLockBytePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBLockBytePage.m; sourceTree = "<group>"; };
+		EACAF4261D2EC311001E1EDE /* DBBtreePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBBtreePage.h; sourceTree = "<group>"; };
+		EACAF4271D2EC311001E1EDE /* DBBtreePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBBtreePage.m; sourceTree = "<group>"; };
+		EACAF4291D2EC31E001E1EDE /* DBPayloadPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPayloadPage.h; sourceTree = "<group>"; };
+		EACAF42A1D2EC31E001E1EDE /* DBPayloadPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPayloadPage.m; sourceTree = "<group>"; };
+		EACAF42C1D2EC329001E1EDE /* DBPointerMapPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPointerMapPage.h; sourceTree = "<group>"; };
+		EACAF42D1D2EC329001E1EDE /* DBPointerMapPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPointerMapPage.m; sourceTree = "<group>"; };
+		EACAF42F1D2EC8D2001E1EDE /* DBPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPage.h; sourceTree = "<group>"; };
+		EACAF4301D2EC913001E1EDE /* DBUnrecognizedPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBUnrecognizedPage.h; sourceTree = "<group>"; };
+		EACAF4311D2EC913001E1EDE /* DBUnrecognizedPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBUnrecognizedPage.m; sourceTree = "<group>"; };
+		EACAF4331D2ECA33001E1EDE /* DBReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBReader.h; sourceTree = "<group>"; };
+		EACAF4341D2ECA33001E1EDE /* DBReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBReader.m; sourceTree = "<group>"; };
+		EACAF4361D2EF642001E1EDE /* DBBtreeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBBtreeCell.h; sourceTree = "<group>"; };
+		EACAF4371D2EF642001E1EDE /* DBBtreeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBBtreeCell.m; sourceTree = "<group>"; };
+		EAEC23591D33EC0200BDCA45 /* DBVarint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DBVarint.c; sourceTree = "<group>"; };
+		EAEC235A1D33EC0200BDCA45 /* DBVarint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBVarint.h; sourceTree = "<group>"; };
+		EAEC235C1D33ECFA00BDCA45 /* DBRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBRecord.h; sourceTree = "<group>"; };
+		EAEC235D1D33ECFA00BDCA45 /* DBRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBRecord.m; sourceTree = "<group>"; };
+		EAEC235F1D35858F00BDCA45 /* DBTableEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBTableEnumerator.h; sourceTree = "<group>"; };
+		EAEC23601D35858F00BDCA45 /* DBTableEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTableEnumerator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +109,7 @@
 				EACAF4131D2EB0ED001E1EDE /* Main.storyboard */,
 				EACAF4161D2EB0ED001E1EDE /* Info.plist */,
 				EACAF4081D2EB0ED001E1EDE /* Supporting Files */,
+				EACAF41D1D2EB3C5001E1EDE /* DB */,
 			);
 			path = "SQLite Inspector";
 			sourceTree = "<group>";
@@ -79,6 +120,40 @@
 				EACAF4091D2EB0ED001E1EDE /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		EACAF41D1D2EB3C5001E1EDE /* DB */ = {
+			isa = PBXGroup;
+			children = (
+				EACAF4361D2EF642001E1EDE /* DBBtreeCell.h */,
+				EACAF4371D2EF642001E1EDE /* DBBtreeCell.m */,
+				EACAF4261D2EC311001E1EDE /* DBBtreePage.h */,
+				EACAF4271D2EC311001E1EDE /* DBBtreePage.m */,
+				EACAF4201D2EC2E6001E1EDE /* DBFreelistPage.h */,
+				EACAF4211D2EC2E6001E1EDE /* DBFreelistPage.m */,
+				EACAF41C1D2EB175001E1EDE /* DBHeader.h */,
+				EACAF41E1D2EB3F5001E1EDE /* DBHeader.m */,
+				EACAF4231D2EC304001E1EDE /* DBLockBytePage.h */,
+				EACAF4241D2EC304001E1EDE /* DBLockBytePage.m */,
+				EACAF4291D2EC31E001E1EDE /* DBPayloadPage.h */,
+				EACAF42A1D2EC31E001E1EDE /* DBPayloadPage.m */,
+				EACAF42C1D2EC329001E1EDE /* DBPointerMapPage.h */,
+				EACAF42D1D2EC329001E1EDE /* DBPointerMapPage.m */,
+				EACAF42F1D2EC8D2001E1EDE /* DBPage.h */,
+				EACAF4331D2ECA33001E1EDE /* DBReader.h */,
+				EACAF4341D2ECA33001E1EDE /* DBReader.m */,
+				EAEC235C1D33ECFA00BDCA45 /* DBRecord.h */,
+				EAEC235D1D33ECFA00BDCA45 /* DBRecord.m */,
+				EAC8F58D1D383C0100CDAAE3 /* DBTable.h */,
+				EAC8F58E1D383C0100CDAAE3 /* DBTable.m */,
+				EAEC235F1D35858F00BDCA45 /* DBTableEnumerator.h */,
+				EAEC23601D35858F00BDCA45 /* DBTableEnumerator.m */,
+				EAEC23591D33EC0200BDCA45 /* DBVarint.c */,
+				EAEC235A1D33EC0200BDCA45 /* DBVarint.h */,
+				EACAF4301D2EC913001E1EDE /* DBUnrecognizedPage.h */,
+				EACAF4311D2EC913001E1EDE /* DBUnrecognizedPage.m */,
+			);
+			path = DB;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,9 +226,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				EACAF4101D2EB0ED001E1EDE /* Document.m in Sources */,
+				EACAF41F1D2EB3F5001E1EDE /* DBHeader.m in Sources */,
+				EAC8F58F1D383C0100CDAAE3 /* DBTable.m in Sources */,
+				EACAF4321D2EC913001E1EDE /* DBUnrecognizedPage.m in Sources */,
+				EAEC235B1D33EC0200BDCA45 /* DBVarint.c in Sources */,
+				EACAF4221D2EC2E6001E1EDE /* DBFreelistPage.m in Sources */,
+				EACAF4381D2EF642001E1EDE /* DBBtreeCell.m in Sources */,
+				EAEC235E1D33ECFA00BDCA45 /* DBRecord.m in Sources */,
+				EACAF4251D2EC304001E1EDE /* DBLockBytePage.m in Sources */,
 				EACAF40D1D2EB0ED001E1EDE /* ViewController.m in Sources */,
+				EACAF4351D2ECA33001E1EDE /* DBReader.m in Sources */,
+				EACAF4281D2EC311001E1EDE /* DBBtreePage.m in Sources */,
 				EACAF40A1D2EB0ED001E1EDE /* main.m in Sources */,
+				EACAF42B1D2EC31E001E1EDE /* DBPayloadPage.m in Sources */,
 				EACAF4071D2EB0ED001E1EDE /* AppDelegate.m in Sources */,
+				EAEC23611D35858F00BDCA45 /* DBTableEnumerator.m in Sources */,
+				EACAF42E1D2EC329001E1EDE /* DBPointerMapPage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,6 +383,7 @@
 				EACAF41B1D2EB0ED001E1EDE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
