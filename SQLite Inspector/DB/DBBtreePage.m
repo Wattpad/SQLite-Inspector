@@ -92,6 +92,26 @@ typedef struct __attribute((packed))__ {
     return (mHeader.treeType & 0x02) != 0;
 }
 
+- (BOOL)isZeroed {
+    static const char kZeroes[4096];
+    NSData *zeroed = [[NSData alloc] initWithBytesNoCopy:(void * _Nonnull)kZeroes
+                                                  length:4096U
+                                            freeWhenDone:NO];
+    return [mData isEqualToData:zeroed];
+}
+
+- (BOOL)isCorrupt {
+    switch (mHeader.treeType) {
+        case 0x02:
+        case 0x05:
+        case 0x0A:
+        case 0x0D:
+            return NO;
+        default:
+            return YES;
+    }
+}
+
 - (NSUInteger)numCells {
     return mHeader.numCells;
 }

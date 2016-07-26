@@ -41,6 +41,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSUInteger numPages;
 
 /**
+ *  The size of the database pages in bytes.
+ */
+@property (nonatomic, readonly) NSUInteger pageSize;
+
+/**
  *  The root B-tree page. This corresponds to the sqlite_master table.
  */
 @property (nonatomic, strong, readonly) DBBtreePage *rootBtreePage;
@@ -98,6 +103,14 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return The payload objects, or nil if the cell has no payload.
  */
 - (nullable NSArray<id> *)objectsForCell:(DBBtreeCell *)cell;
+
+/**
+ *  Returns an array of zeroed pages with their one-based page numbers. This
+ *  method executes asynchronously.
+ *
+ *  @param completion Callback for completion.
+ */
+- (void)zeroedPagesWithCompletion:(void (^ _Nonnull)(NSArray<NSNumber *> *))completion;
 
 @end
 

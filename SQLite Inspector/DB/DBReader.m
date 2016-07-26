@@ -57,8 +57,15 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
     return mHeader.sizeInPages;
 }
 
+- (NSUInteger)pageSize {
+    return mHeader.pageSize;
+}
+
 - (NSArray<DBTable *> *)tables {
     NSMutableArray<DBTable *> *tables = [[NSMutableArray alloc] init];
+    [tables addObject:[[DBTable alloc] initWithName:@"sqlite_master"
+                                           rootPage:1U
+                                                sql:@"CREATE TABLE sqlite_master(type text, name text, tbl_name text, rootpage integer, sql text)"]];
     DBTableEnumerator *enumerator = [[DBTableEnumerator alloc] initWithReader:self
                                                                      rootPage:self.rootBtreePage];
     for (DBBtreeCell *cell in enumerator) {
@@ -164,10 +171,10 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
                 [values addObject:@([record doubleAtIndex:j])];
                 break;
             case DBColumnTypeFalse:
-                [values addObject:@"FALSE"];
+                [values addObject:@NO];
                 break;
             case DBColumnTypeTrue:
-                [values addObject:@"TRUE"];
+                [values addObject:@YES];
                 break;
             default:
                 if (type >= DBColumnTypeBlob && (type & 1) == 0) {
@@ -181,6 +188,27 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
         }
     }
     return values;
+}
+
+- (void)zeroedPagesWithCompletion:(void (^)(NSArray<NSNumber *> *))completion {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        static const char zeroes[4096];
+        NSData *zeroed = [[NSData alloc] initWithBytesNoCopy:(void * _Nonnull)zeroes
+                                                      length:4096
+                                                freeWhenDone:NO];
+        const NSUInteger numPages = self.numPages;
+        NSMutableArray<NSNumber *> *pages = [[NSMutableArray alloc] init];
+        [mHandle seekToFileOffset:0U];
+        for (NSUInteger i = 0; i < numPages; ++i) {
+            NSData *page = [mHandle readDataOfLength:4096];
+            if ([page isEqualToData:zeroed]) {
+                [pages addObject:@(i+1)];
+            }
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completion(pages);
+        });
+    });
 }
 
 @end

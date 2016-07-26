@@ -68,6 +68,7 @@ static BOOL NumbersEqual(NSNumber *n1, NSNumber *n2) {
 @property (nonatomic, copy) NSArray<DBTable *> *tables;
 @property (nonatomic, copy) NSArray<DBEntry *> *tableEntries;
 @property (nonatomic, strong, readonly) NSMutableDictionary<DBEntry *, NSArray<DBEntry *> *> *entries;
+@property (nonatomic, strong, nullable) NSImageView *imageView;
 
 @end
 
@@ -110,16 +111,10 @@ static BOOL NumbersEqual(NSNumber *n1, NSNumber *n2) {
         DBEntry *parent = [[DBEntry alloc] init];
         parent.tableNumber = @(idx);
         [tableEntries addObject:parent];
-        DBBtreePage *page = [reader btreePageAtIndex:table.rootPage];
-        const NSUInteger numCells = page.numCells;
-        const BOOL hasRightChild = !page.isLeaf && page.rightMostPointer != 0U;
-        NSMutableArray *children = [[NSMutableArray alloc] initWithCapacity:numCells + hasRightChild ? 1U : 0U];
-        for (NSUInteger i = 0; i < numCells; ++i) {
-            DBEntry *child = [[DBEntry alloc] init];
-            child.pageNumber = @(table.rootPage);
-            [children addObject:child];
-        }
-        self.entries[parent] = children;
+
+        DBEntry *child = [[DBEntry alloc] init];
+        child.pageNumber = @(table.rootPage);
+        self.entries[parent] = @[ child ];
     }];
     self.tableEntries = tableEntries;
     [self.outlineView reloadData];
@@ -146,15 +141,6 @@ static BOOL NumbersEqual(NSNumber *n1, NSNumber *n2) {
     return [self outlineView:outlineView numberOfChildrenOfItem:item] > 0;
 }
 
-- (NSArray<DBEntry *> *)entriesForTable:(DBTable *)table entry:(DBEntry *)entry {
-    NSArray<DBEntry *> *entries = self.entries[entry];
-    if (!entries) {
-        DBEntry *entry = [[DBEntry alloc] init];
-        self.entries[entry] = entries = @[ entry ];
-    }
-    return entries;
-}
-
 - (NSArray<DBEntry *> *)entriesForEntry:(DBEntry *)entry {
     NSArray<DBEntry *> *entries = self.entries[entry];
     if (entries) {
@@ -177,7 +163,8 @@ static BOOL NumbersEqual(NSNumber *n1, NSNumber *n2) {
         NSMutableArray<DBEntry *> *children = [[NSMutableArray alloc] initWithCapacity:numCells];
         for (NSUInteger i = 0; i < numCells; ++i) {
             DBEntry *child = [[DBEntry alloc] init];
-            child.pageNumber = @([page cellAtIndex:i].leftChildPageNumber);
+            DBBtreeCell *cell = [page cellAtIndex:i];
+            child.pageNumber = @(cell.leftChildPageNumber);
             [children addObject:child];
         }
         return self.entries[entry] = children;
@@ -240,6 +227,19 @@ static BOOL NumbersEqual(NSNumber *n1, NSNumber *n2) {
         isName = YES;
     } else if ([tableColumn.identifier isEqualToString:@"type"]) {
         isName = NO;
+    } else if ([tableColumn.identifier isEqualToString:@"location"]) {
+        if (entry.tableNumber != nil) {
+            return [[NSString alloc] initWithFormat:@"Table %@", entry.tableNumber];
+        }
+        NSString *location = [[NSString alloc] initWithFormat:@"Page %@ (0x%lx)",
+                              entry.pageNumber, (unsigned long)self.document.reader.pageSize * entry.pageNumber.unsignedIntegerValue];
+        if (entry.cellNumber != nil) {
+            location = [location stringByAppendingFormat:@", Cell %@", entry.cellNumber];
+        }
+        if (entry.columnNumber != nil) {
+            location = [location stringByAppendingFormat:@", Column %@", entry.columnNumber];
+        }
+        return location;
     } else {
         return nil;
     }
@@ -256,6 +256,8 @@ static BOOL NumbersEqual(NSNumber *n1, NSNumber *n2) {
         if (isName) {
             return page.isIndexTree ? @"Index B-tree Page" : @"Table B-tree Page";
         } else {
+            if (page.isZeroed) { return @"Corrupt (Zeroed)"; }
+            else if (page.isCorrupt) { return @"Corrupt (Other)"; }
             return page.isLeaf ? @"Leaf" : @"Internal";
         }
     }
@@ -266,7 +268,82 @@ static BOOL NumbersEqual(NSNumber *n1, NSNumber *n2) {
     }
 
     id object = [reader objectsForCell:cell][entry.columnNumber.unsignedIntegerValue];
-    return isName ? [object description] : [object className];
+    if ([object isKindOfClass:[NSNull class]]) {
+        return isName ? @"NULL" : @"Null";
+    } else if ([object isKindOfClass:[NSNumber class]]) {
+        return isName ? [object description] : @"Number";
+    } else if ([object isKindOfClass:[NSString class]]) {
+        return isName ? object : @"String";
+    } else if ([object isKindOfClass:[NSData class]]) {
+        return isName ? [NSString stringWithFormat:@"%lu bytes", (unsigned long)[object length]] : @"Blob";
+    } else {
+        NSAssert(NO, @"Unexpected data type");
+        return isName ? [object description] : [object className];
+    }
+}
+
+- (IBAction)generateZeroView:(id)sender {
+    const NSUInteger numPages = self.document.reader.numPages;
+    const NSUInteger width = 64;
+    NSUInteger height = numPages / width;
+    if (height * width < numPages) {
+        ++height;
+    }
+    [self.document.reader zeroedPagesWithCompletion:^(NSArray<NSNumber *> * _Nonnull pages) {
+        NSBitmapImageRep *bitmap = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                                           pixelsWide:width * 8
+                                                                           pixelsHigh:height * 8
+                                                                        bitsPerSample:8
+                                                                      samplesPerPixel:3
+                                                                             hasAlpha:NO
+                                                                             isPlanar:NO
+                                                                       colorSpaceName:NSCalibratedRGBColorSpace
+                                                                         bitmapFormat:0
+                                                                          bytesPerRow:0
+                                                                         bitsPerPixel:32];
+        NSAssert(bitmap != nil, @"Unable to create bitmap representation");
+        unsigned char *data = bitmap.bitmapData;
+        memset(data, 0xFF, bitmap.bytesPerRow * height * 8);
+        const NSUInteger bytesPerRow = bitmap.bytesPerRow;
+        typedef unsigned char Px;
+        void (^ColorPage)(NSUInteger, Px, Px, Px) = ^(NSUInteger page, Px r, Px g, Px b) {
+            const NSUInteger baseRow = page / width;
+            const NSUInteger baseCol = page - (baseRow * width);
+            const NSUInteger baseOffset = 8 * (baseRow * bytesPerRow + baseCol * 4);
+            for (NSUInteger row = 0; row < 8; ++row) {
+                for (NSUInteger col = 0; col < 8; ++col) {
+                    const NSUInteger offset = baseOffset + row * bytesPerRow + col * 4;
+                    data[offset + 0] = r;
+                    data[offset + 1] = g;
+                    data[offset + 2] = b;
+                    data[offset + 3] = 0xFF;
+                }
+            }
+
+        };
+        [pages enumerateObjectsUsingBlock:^(NSNumber * _Nonnull page, NSUInteger idx, BOOL * _Nonnull stop) {
+            ColorPage(page.unsignedIntegerValue, 0xFF, 0x00, 0x00);
+        }];
+        const NSUInteger drawnPages = width * height;
+        for (NSUInteger page = numPages + 1; page < drawnPages; ++page) {
+            ColorPage(page, 0x00, 0x00, 0x00);
+        }
+
+        memset(data, 0x00, bytesPerRow);
+        memset(&data[bytesPerRow * (height * 8 - 1)], 0x00, bytesPerRow);
+        for (NSUInteger i = 1; i < height * 8 - 1; ++i) {
+            memset(&data[bytesPerRow * i], 0x00, 4);
+            memset(&data[bytesPerRow * (i + 1) - 4], 0x00, 4);
+        }
+
+        [self.imageView removeFromSuperview];
+
+        NSRect frame = NSMakeRect(0.0, 0.0, width * 8, height * 8);
+        NSImage *image = [[NSImage alloc] initWithCGImage:bitmap.CGImage size:frame.size];
+        self.imageView = [[NSImageView alloc] initWithFrame:frame];
+        self.imageView.image = image;
+        [self.view addSubview:self.imageView];
+    }];
 }
 
 @end

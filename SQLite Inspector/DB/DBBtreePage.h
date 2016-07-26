@@ -32,6 +32,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) BOOL isIndexTree;
 @property (nonatomic, readonly) NSUInteger numCells;
 @property (nonatomic, readonly) NSUInteger rightMostPointer;
+@property (nonatomic, readonly) BOOL isZeroed;
+@property (nonatomic, readonly) BOOL isCorrupt;
 
 - (DBBtreeCell *)cellAtIndex:(NSUInteger)index;
 

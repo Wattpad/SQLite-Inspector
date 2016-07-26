@@ -12,5 +12,7 @@
 
 @property (nonatomic, strong) IBOutlet NSOutlineView *outlineView;
 
+- (IBAction)generateZeroView:(id)sender;
+
 @end
 
