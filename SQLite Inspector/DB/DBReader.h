@@ -10,7 +10,8 @@
 
 @class DBBtreeCell;
 @class DBBtreePage;
-@class DBFreelistPage;
+@class DBFreelistLeafPage;
+@class DBFreelistTrunkPage;
 @class DBLockBytePage;
 @class DBPayloadPage;
 @class DBPointerMapPage;
@@ -51,6 +52,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) DBBtreePage *rootBtreePage;
 
 /**
+ *  The first pointer map page, or nil if there are no pointer map pages.
+ */
+@property (nonatomic, strong, readonly, nullable) DBPointerMapPage *firstPointerMapPage;
+
+/**
  *  All the tables in the database, excluding the sqlite_master table.
  */
 @property (nonatomic, strong, readonly) NSArray<DBTable *> *tables;
@@ -66,6 +72,26 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable DBBtreePage *)btreePageAtIndex:(NSUInteger)index;
 
 /**
+ *  Returns the freelist trunk page at the given index. The behaviour is
+ *  undefined if the page at that index is not a freelist trunk page.
+ *
+ *  @param index A page index.
+ *
+ *  @return A freelist trunk page, or nil if the index is zero.
+ */
+- (nullable DBFreelistTrunkPage *)freelistTrunkPageAtIndex:(NSUInteger)index;
+
+/**
+ *  Returns the freelist leaf page at the given index. The behaviour is
+ *  undefined if the page at that index is not a freelist leaf page.
+ *
+ *  @param index A page index.
+ *
+ *  @return A freelist leaf page, or nil if the index is zero.
+ */
+- (nullable DBFreelistLeafPage *)freelistLeafPageAtIndex:(NSUInteger)index;
+
+/**
  *  Returns the payload overflow at the given page index. The behaviour is
  *  undefined if the page at that index is not a payload overflow.
  *
@@ -74,6 +100,16 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return A payload overflow page, or nil if the index is zero.
  */
 - (nullable DBPayloadPage *)payloadPageAtIndex:(NSUInteger)index;
+
+/**
+ *  Returns the pointer map page at the given index. The behaviour is undefined
+ *  if the page at that index is not a pointer map.
+ *
+ *  @param index A apge index.
+ *
+ *  @return A pointer map page, or nil if the index is zero.
+ */
+- (nullable DBPointerMapPage *)pointerMapPageAtIndex:(NSUInteger)index;
 
 /**
  *  Returns the complete payload for a B-tree cell.

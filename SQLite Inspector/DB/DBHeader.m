@@ -90,4 +90,8 @@ static DBHeader_t HeaderFromData(const char *data) {
     return mHeader.numFreePages;
 }
 
+- (NSUInteger)largestRootPageNumber {
+    return mHeader.largestRootPageNumber;
+}
+
 @end

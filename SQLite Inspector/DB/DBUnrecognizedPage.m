@@ -8,13 +8,25 @@
 
 #import "DBUnrecognizedPage.h"
 
+@interface DBUnrecognizedPage () {
+    NSUInteger mIndex;
+}
+@end
+
 @implementation DBUnrecognizedPage
 
 - (instancetype)initWithIndex:(NSUInteger)index
                          data:(NSData *)data
-                     pageSize:(NSUInteger)pageSize
                  reservedSize:(NSUInteger)reservedSize {
-    return [super init];
+    self = [super init];
+    if (self) {
+        mIndex = index;
+    }
+    return self;
+}
+
+- (NSUInteger)index {
+    return mIndex;
 }
 
 - (DBPageType)pageType {

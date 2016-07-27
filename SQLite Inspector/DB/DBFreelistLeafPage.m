@@ -1,23 +1,24 @@
 //
-//  DBLockBytePage.m
+//  DBFreelistLeafPage.m
 //  SQLite Inspector
 //
-//  Created by R. Tony Goold on 07.07.2016.
+//  Created by R. Tony Goold on 27.07.2016.
 //  Copyright © 2016 WP Technology Inc. All rights reserved.
 //
 
-#import "DBLockBytePage.h"
+#import "DBFreelistLeafPage.h"
 
-@interface DBLockBytePage () {
+@interface DBFreelistLeafPage () {
     NSUInteger mIndex;
 }
 @end
 
-@implementation DBLockBytePage
+@implementation DBFreelistLeafPage
 
 - (instancetype)initWithIndex:(NSUInteger)index
                          data:(NSData *)data
                  reservedSize:(NSUInteger)reservedSize {
+    // Leaf pages contain arbitrary information
     self = [super init];
     if (self) {
         mIndex = index;
@@ -30,7 +31,7 @@
 }
 
 - (DBPageType)pageType {
-    return DBPageTypeLockByte;
+    return DBPageTypeFreelist;
 }
 
 @end

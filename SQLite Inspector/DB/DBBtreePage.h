@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithIndex:(NSUInteger)index
                          data:(NSData *)data
-                     pageSize:(NSUInteger)pageSize
                  reservedSize:(NSUInteger)reservedSize;
 
 @property (nonatomic, readonly) DBBtreeType treeType;

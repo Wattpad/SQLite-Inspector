@@ -1,5 +1,5 @@
 //
-//  DBFreelistPage.h
+//  DBFreelistTrunkPage.h
 //  SQLite Inspector
 //
 //  Created by R. Tony Goold on 07.07.2016.
@@ -12,11 +12,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface DBFreelistPage : NSObject <DBPage>
+@interface DBFreelistTrunkPage : NSObject <DBPage>
 
 - (instancetype)initWithIndex:(NSUInteger)index
                          data:(NSData *)data
-                     pageSize:(NSUInteger)pageSize
                  reservedSize:(NSUInteger)reservedSize;
 
 /**
@@ -24,6 +23,11 @@ NS_ASSUME_NONNULL_BEGIN
  *  last page.
  */
 @property (nonatomic, readonly) NSUInteger nextFreelistPageIndex;
+
+/**
+ *  The page numbers of the freelist leaf pages this page points to.
+ */
+@property (nonatomic, readonly) NSIndexSet *leafPageNumbers;
 
 @end
 

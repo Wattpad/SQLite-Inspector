@@ -55,13 +55,12 @@ typedef struct __attribute((packed))__ {
 
 - (instancetype)initWithIndex:(NSUInteger)index
                          data:(NSData *)data
-                     pageSize:(NSUInteger)pageSize
                  reservedSize:(NSUInteger)reservedSize {
     self = [super init];
     if (self) {
         mIndex = index;
         mData = [data copy];
-        mUsableSize = pageSize - reservedSize;
+        mUsableSize = data.length - reservedSize;
         mHeader = *((DBBtreePageHeader_t *)[self headerPointer]);
         mHeader.firstFreeblockOffset = ntohs(mHeader.firstFreeblockOffset);
         mHeader.numCells = ntohs(mHeader.numCells);
@@ -73,6 +72,10 @@ typedef struct __attribute((packed))__ {
         }
     }
     return self;
+}
+
+- (NSUInteger)index {
+    return mIndex;
 }
 
 - (DBPageType)pageType {

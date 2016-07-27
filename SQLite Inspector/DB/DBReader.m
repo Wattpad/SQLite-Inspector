@@ -12,7 +12,8 @@
 
 #import "DBBtreeCell.h"
 #import "DBBtreePage.h"
-#import "DBFreelistPage.h"
+#import "DBFreelistLeafPage.h"
+#import "DBFreelistTrunkPage.h"
 #import "DBLockBytePage.h"
 #import "DBPayloadPage.h"
 #import "DBPointerMapPage.h"
@@ -86,12 +87,32 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
     return [self pageAtIndex:1 class:[DBBtreePage class]];
 }
 
+- (DBPointerMapPage *)firstPointerMapPage {
+    if (mHeader.largestRootPageNumber == 0U) {
+        return nil;
+    } else {
+        return [self pageAtIndex:2U class:[DBPayloadPage class]];
+    }
+}
+
 - (DBBtreePage *)btreePageAtIndex:(NSUInteger)index {
     return [self pageAtIndex:index class:[DBBtreePage class]];
 }
 
+- (DBFreelistTrunkPage *)freelistTrunkPageAtIndex:(NSUInteger)index {
+    return [self pageAtIndex:index class:[DBFreelistTrunkPage class]];
+}
+
+- (DBFreelistLeafPage *)freelistLeafPageAtIndex:(NSUInteger)index {
+    return [self pageAtIndex:index class:[DBFreelistLeafPage class]];
+}
+
 - (DBPayloadPage *)payloadPageAtIndex:(NSUInteger)index {
     return [self pageAtIndex:index class:[DBPayloadPage class]];
+}
+
+- (DBPointerMapPage *)pointerMapPageAtIndex:(NSUInteger)index {
+    return [self pageAtIndex:index class:[DBPointerMapPage class]];
 }
 
 - (id<DBPage>)pageAtIndex:(NSUInteger)index class:(Class<DBPage>)class {
@@ -115,7 +136,6 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
     }
     return [[class alloc] initWithIndex:index
                                    data:data
-                               pageSize:kPageSize
                            reservedSize:mHeader.pageReserveSize];
 }
 

@@ -19,13 +19,13 @@ typedef NS_ENUM(NSUInteger, DBPageType) {
 
 @protocol DBPage <NSObject>
 
+@property (nonatomic, readonly) NSUInteger index;
 @property (nonatomic, readonly) DBPageType pageType;
 
 + (instancetype)alloc;
 
 - (instancetype)initWithIndex:(NSUInteger)index
                          data:(NSData *)data
-                     pageSize:(NSUInteger)pageSize
                  reservedSize:(NSUInteger)reservedSize;
 
 @end

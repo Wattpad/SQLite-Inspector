@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) NSUInteger pageReserveSize;
 @property (nonatomic, readonly) NSUInteger sizeInPages;
 @property (nonatomic, readonly) NSUInteger numFreePages;
+@property (nonatomic, readonly) NSUInteger largestRootPageNumber;
 
 @end
 

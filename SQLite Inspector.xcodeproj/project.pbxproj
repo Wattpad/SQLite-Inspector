@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA9CE1651D491BA900A1D406 /* DBFreelistLeafPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE1641D491BA900A1D406 /* DBFreelistLeafPage.m */; };
+		EA9CE1681D491C7500A1D406 /* DBBtreePageEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE1671D491C7500A1D406 /* DBBtreePageEnumerator.m */; };
+		EA9CE16B1D491ED100A1D406 /* DBFreelistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE16A1D491ED100A1D406 /* DBFreelistEnumerator.m */; };
+		EA9CE16E1D4933EE00A1D406 /* DBBtreeCellEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE16D1D4933EE00A1D406 /* DBBtreeCellEnumerator.m */; };
+		EA9CE1711D4935B200A1D406 /* DBPayloadPageEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE1701D4935B200A1D406 /* DBPayloadPageEnumerator.m */; };
+		EA9CE1741D493B3C00A1D406 /* DBPointerMapPageEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE1731D493B3C00A1D406 /* DBPointerMapPageEnumerator.m */; };
 		EAC8F58F1D383C0100CDAAE3 /* DBTable.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC8F58E1D383C0100CDAAE3 /* DBTable.m */; };
 		EACAF4071D2EB0ED001E1EDE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4061D2EB0ED001E1EDE /* AppDelegate.m */; };
 		EACAF40A1D2EB0ED001E1EDE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4091D2EB0ED001E1EDE /* main.m */; };
@@ -15,7 +21,7 @@
 		EACAF4121D2EB0ED001E1EDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EACAF4111D2EB0ED001E1EDE /* Assets.xcassets */; };
 		EACAF4151D2EB0ED001E1EDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EACAF4131D2EB0ED001E1EDE /* Main.storyboard */; };
 		EACAF41F1D2EB3F5001E1EDE /* DBHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF41E1D2EB3F5001E1EDE /* DBHeader.m */; };
-		EACAF4221D2EC2E6001E1EDE /* DBFreelistPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4211D2EC2E6001E1EDE /* DBFreelistPage.m */; };
+		EACAF4221D2EC2E6001E1EDE /* DBFreelistTrunkPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4211D2EC2E6001E1EDE /* DBFreelistTrunkPage.m */; };
 		EACAF4251D2EC304001E1EDE /* DBLockBytePage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4241D2EC304001E1EDE /* DBLockBytePage.m */; };
 		EACAF4281D2EC311001E1EDE /* DBBtreePage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4271D2EC311001E1EDE /* DBBtreePage.m */; };
 		EACAF42B1D2EC31E001E1EDE /* DBPayloadPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF42A1D2EC31E001E1EDE /* DBPayloadPage.m */; };
@@ -29,6 +35,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA9CE1631D491BA900A1D406 /* DBFreelistLeafPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBFreelistLeafPage.h; sourceTree = "<group>"; };
+		EA9CE1641D491BA900A1D406 /* DBFreelistLeafPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBFreelistLeafPage.m; sourceTree = "<group>"; };
+		EA9CE1661D491C7500A1D406 /* DBBtreePageEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBBtreePageEnumerator.h; sourceTree = "<group>"; };
+		EA9CE1671D491C7500A1D406 /* DBBtreePageEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBBtreePageEnumerator.m; sourceTree = "<group>"; };
+		EA9CE1691D491ED100A1D406 /* DBFreelistEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBFreelistEnumerator.h; sourceTree = "<group>"; };
+		EA9CE16A1D491ED100A1D406 /* DBFreelistEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBFreelistEnumerator.m; sourceTree = "<group>"; };
+		EA9CE16C1D4933EE00A1D406 /* DBBtreeCellEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBBtreeCellEnumerator.h; sourceTree = "<group>"; };
+		EA9CE16D1D4933EE00A1D406 /* DBBtreeCellEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBBtreeCellEnumerator.m; sourceTree = "<group>"; };
+		EA9CE16F1D4935B200A1D406 /* DBPayloadPageEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPayloadPageEnumerator.h; sourceTree = "<group>"; };
+		EA9CE1701D4935B200A1D406 /* DBPayloadPageEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPayloadPageEnumerator.m; sourceTree = "<group>"; };
+		EA9CE1721D493B3C00A1D406 /* DBPointerMapPageEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBPointerMapPageEnumerator.h; sourceTree = "<group>"; };
+		EA9CE1731D493B3C00A1D406 /* DBPointerMapPageEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBPointerMapPageEnumerator.m; sourceTree = "<group>"; };
 		EAC8F58D1D383C0100CDAAE3 /* DBTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBTable.h; sourceTree = "<group>"; };
 		EAC8F58E1D383C0100CDAAE3 /* DBTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTable.m; sourceTree = "<group>"; };
 		EACAF4021D2EB0ED001E1EDE /* SQLite Inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SQLite Inspector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,8 +62,8 @@
 		EACAF4161D2EB0ED001E1EDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EACAF41C1D2EB175001E1EDE /* DBHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DBHeader.h; sourceTree = "<group>"; };
 		EACAF41E1D2EB3F5001E1EDE /* DBHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBHeader.m; sourceTree = "<group>"; };
-		EACAF4201D2EC2E6001E1EDE /* DBFreelistPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBFreelistPage.h; sourceTree = "<group>"; };
-		EACAF4211D2EC2E6001E1EDE /* DBFreelistPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBFreelistPage.m; sourceTree = "<group>"; };
+		EACAF4201D2EC2E6001E1EDE /* DBFreelistTrunkPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBFreelistTrunkPage.h; sourceTree = "<group>"; };
+		EACAF4211D2EC2E6001E1EDE /* DBFreelistTrunkPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBFreelistTrunkPage.m; sourceTree = "<group>"; };
 		EACAF4231D2EC304001E1EDE /* DBLockBytePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBLockBytePage.h; sourceTree = "<group>"; };
 		EACAF4241D2EC304001E1EDE /* DBLockBytePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBLockBytePage.m; sourceTree = "<group>"; };
 		EACAF4261D2EC311001E1EDE /* DBBtreePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBBtreePage.h; sourceTree = "<group>"; };
@@ -127,18 +145,30 @@
 			children = (
 				EACAF4361D2EF642001E1EDE /* DBBtreeCell.h */,
 				EACAF4371D2EF642001E1EDE /* DBBtreeCell.m */,
+				EA9CE16C1D4933EE00A1D406 /* DBBtreeCellEnumerator.h */,
+				EA9CE16D1D4933EE00A1D406 /* DBBtreeCellEnumerator.m */,
 				EACAF4261D2EC311001E1EDE /* DBBtreePage.h */,
 				EACAF4271D2EC311001E1EDE /* DBBtreePage.m */,
-				EACAF4201D2EC2E6001E1EDE /* DBFreelistPage.h */,
-				EACAF4211D2EC2E6001E1EDE /* DBFreelistPage.m */,
+				EA9CE1661D491C7500A1D406 /* DBBtreePageEnumerator.h */,
+				EA9CE1671D491C7500A1D406 /* DBBtreePageEnumerator.m */,
+				EA9CE1691D491ED100A1D406 /* DBFreelistEnumerator.h */,
+				EA9CE16A1D491ED100A1D406 /* DBFreelistEnumerator.m */,
+				EA9CE1631D491BA900A1D406 /* DBFreelistLeafPage.h */,
+				EA9CE1641D491BA900A1D406 /* DBFreelistLeafPage.m */,
+				EACAF4201D2EC2E6001E1EDE /* DBFreelistTrunkPage.h */,
+				EACAF4211D2EC2E6001E1EDE /* DBFreelistTrunkPage.m */,
 				EACAF41C1D2EB175001E1EDE /* DBHeader.h */,
 				EACAF41E1D2EB3F5001E1EDE /* DBHeader.m */,
 				EACAF4231D2EC304001E1EDE /* DBLockBytePage.h */,
 				EACAF4241D2EC304001E1EDE /* DBLockBytePage.m */,
 				EACAF4291D2EC31E001E1EDE /* DBPayloadPage.h */,
 				EACAF42A1D2EC31E001E1EDE /* DBPayloadPage.m */,
+				EA9CE16F1D4935B200A1D406 /* DBPayloadPageEnumerator.h */,
+				EA9CE1701D4935B200A1D406 /* DBPayloadPageEnumerator.m */,
 				EACAF42C1D2EC329001E1EDE /* DBPointerMapPage.h */,
 				EACAF42D1D2EC329001E1EDE /* DBPointerMapPage.m */,
+				EA9CE1721D493B3C00A1D406 /* DBPointerMapPageEnumerator.h */,
+				EA9CE1731D493B3C00A1D406 /* DBPointerMapPageEnumerator.m */,
 				EACAF42F1D2EC8D2001E1EDE /* DBPage.h */,
 				EACAF4331D2ECA33001E1EDE /* DBReader.h */,
 				EACAF4341D2ECA33001E1EDE /* DBReader.m */,
@@ -228,19 +258,25 @@
 				EACAF4101D2EB0ED001E1EDE /* Document.m in Sources */,
 				EACAF41F1D2EB3F5001E1EDE /* DBHeader.m in Sources */,
 				EAC8F58F1D383C0100CDAAE3 /* DBTable.m in Sources */,
+				EA9CE16B1D491ED100A1D406 /* DBFreelistEnumerator.m in Sources */,
 				EACAF4321D2EC913001E1EDE /* DBUnrecognizedPage.m in Sources */,
+				EA9CE1741D493B3C00A1D406 /* DBPointerMapPageEnumerator.m in Sources */,
 				EAEC235B1D33EC0200BDCA45 /* DBVarint.c in Sources */,
-				EACAF4221D2EC2E6001E1EDE /* DBFreelistPage.m in Sources */,
+				EACAF4221D2EC2E6001E1EDE /* DBFreelistTrunkPage.m in Sources */,
 				EACAF4381D2EF642001E1EDE /* DBBtreeCell.m in Sources */,
 				EAEC235E1D33ECFA00BDCA45 /* DBRecord.m in Sources */,
 				EACAF4251D2EC304001E1EDE /* DBLockBytePage.m in Sources */,
 				EACAF40D1D2EB0ED001E1EDE /* ViewController.m in Sources */,
+				EA9CE1711D4935B200A1D406 /* DBPayloadPageEnumerator.m in Sources */,
 				EACAF4351D2ECA33001E1EDE /* DBReader.m in Sources */,
 				EACAF4281D2EC311001E1EDE /* DBBtreePage.m in Sources */,
 				EACAF40A1D2EB0ED001E1EDE /* main.m in Sources */,
+				EA9CE16E1D4933EE00A1D406 /* DBBtreeCellEnumerator.m in Sources */,
 				EACAF42B1D2EC31E001E1EDE /* DBPayloadPage.m in Sources */,
+				EA9CE1681D491C7500A1D406 /* DBBtreePageEnumerator.m in Sources */,
 				EACAF4071D2EB0ED001E1EDE /* AppDelegate.m in Sources */,
 				EAEC23611D35858F00BDCA45 /* DBTableEnumerator.m in Sources */,
+				EA9CE1651D491BA900A1D406 /* DBFreelistLeafPage.m in Sources */,
 				EACAF42E1D2EC329001E1EDE /* DBPointerMapPage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
