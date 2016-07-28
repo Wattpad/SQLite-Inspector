@@ -12,6 +12,7 @@
 @class DBBtreePage;
 @class DBFreelistLeafPage;
 @class DBFreelistTrunkPage;
+@class DBIndex;
 @class DBLockBytePage;
 @class DBPayloadPage;
 @class DBPointerMapPage;
@@ -52,14 +53,29 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, readonly) DBBtreePage *rootBtreePage;
 
 /**
+ *  The page number of the first freelist page, or zero if there is none.
+ */
+@property (nonatomic, readonly) NSUInteger firstFreePageNumber;
+
+/**
  *  The first pointer map page, or nil if there are no pointer map pages.
  */
 @property (nonatomic, strong, readonly, nullable) DBPointerMapPage *firstPointerMapPage;
 
 /**
+ *  The page number of the lock byte page, or zero if there is none.
+ */
+@property (nonatomic, readonly) NSUInteger lockBytePageNumber;
+
+/**
  *  All the tables in the database, excluding the sqlite_master table.
  */
 @property (nonatomic, strong, readonly) NSArray<DBTable *> *tables;
+
+/**
+ *  All the indices in the database.
+ */
+@property (nonatomic, strong, readonly) NSArray<DBIndex *> *indices;
 
 /**
  *  Returns the B-tree at the given page index. The behaviour is undefined if
@@ -70,6 +86,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  @return A B-tree page, or nil if the index is zero.
  */
 - (nullable DBBtreePage *)btreePageAtIndex:(NSUInteger)index;
+
+/**
+ *  Returns the lock byte page, if it exists.
+ *
+ *  @return The lock byte page, or nil if it does not exist.
+ */
+- (nullable DBLockBytePage *)lockBytePage;
 
 /**
  *  Returns the freelist trunk page at the given index. The behaviour is

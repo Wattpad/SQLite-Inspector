@@ -82,8 +82,16 @@ static DBHeader_t HeaderFromData(const char *data) {
     return mHeader.pageReserveSize;
 }
 
+- (NSUInteger)fileChangeCounter {
+    return mHeader.fileChangeCounter;
+}
+
 - (NSUInteger)sizeInPages {
     return mHeader.sizeInPages;
+}
+
+- (NSUInteger)firstFreePageNumber {
+    return mHeader.firstFreePageNumber;
 }
 
 - (NSUInteger)numFreePages {
@@ -92,6 +100,10 @@ static DBHeader_t HeaderFromData(const char *data) {
 
 - (NSUInteger)largestRootPageNumber {
     return mHeader.largestRootPageNumber;
+}
+
+- (NSUInteger)versionValidFor {
+    return mHeader.versionValidFor;
 }
 
 @end

@@ -9,15 +9,16 @@
 #import "DBTableEnumerator.h"
 
 #import "DBBtreeCell.h"
+#import "DBBtreeCellEnumerator.h"
 #import "DBBtreePage.h"
+#import "DBBtreePageEnumerator.h"
 #import "DBReader.h"
 
 @interface DBTableEnumerator ()
 
 @property (nonatomic, strong, readonly) DBReader *reader;
-@property (nonatomic, strong, readonly) DBBtreePage *rootPage;
-@property (nonatomic) NSUInteger index;
-@property (nonatomic, strong, nullable) DBTableEnumerator *subEnum;
+@property (nonatomic, strong, readonly) NSMutableArray<DBBtreePageEnumerator *> *pageEnums;
+@property (nonatomic, strong, nullable) DBBtreeCellEnumerator *cellEnum;
 
 @end
 
@@ -28,44 +29,43 @@
     self = [super init];
     if (self) {
         _reader = reader;
-        _rootPage = rootPage;
+        if (rootPage.isLeaf) {
+            _pageEnums = [[NSMutableArray alloc] init];
+            _cellEnum = [[DBBtreeCellEnumerator alloc] initWithReader:reader rootPage:rootPage];
+        } else {
+            DBBtreePageEnumerator *pageEnum = [[DBBtreePageEnumerator alloc] initWithReader:reader rootPage:rootPage];
+            _pageEnums = [[NSMutableArray alloc] initWithObjects:pageEnum, nil];
+        }
     }
     return self;
 }
 
 - (DBBtreeCell *)nextObject {
-    if (self.subEnum != nil) {
-        id next = [self.subEnum nextObject];
-        if (next != nil) {
-            return next;
+    if (self.cellEnum != nil) {
+        DBBtreeCell *cell = [self.cellEnum nextObject];
+        if (cell) {
+            return cell;
+        } else {
+            self.cellEnum = nil;
         }
-        self.subEnum = nil;
     }
 
-    // TODO: Handle index pages (or create a DBIndexEnumerator class)
-
-    const NSUInteger numCells = self.rootPage.numCells;
-    if (self.index >= numCells) {
-        // Interior pages have a right child pointer that is not included in the
-        // number of cells.
-        if (!self.rootPage.isLeaf && self.index == numCells) {
-            self.subEnum = [[DBTableEnumerator alloc] initWithReader:self.reader
-                                                            rootPage:[self.reader btreePageAtIndex:self.rootPage.rightMostPointer]];
-            ++self.index;
-            return [self nextObject];
-        }
+    DBBtreePageEnumerator *pageEnum = self.pageEnums.lastObject;
+    if (pageEnum == nil) {
         return nil;
     }
 
-    DBBtreeCell *cell = [self.rootPage cellAtIndex:self.index];
-    ++self.index;
-    if (self.rootPage.isLeaf) {
-        return cell;
+    DBBtreePage *page = [pageEnum nextObject];
+    if (page == nil) {
+        [self.pageEnums removeLastObject];
+    } else if (page.isLeaf) {
+        self.cellEnum = [[DBBtreeCellEnumerator alloc] initWithReader:self.reader rootPage:page];
     } else {
-        self.subEnum = [[DBTableEnumerator alloc] initWithReader:self.reader
-                                                        rootPage:[self.reader btreePageAtIndex:cell.leftChildPageNumber]];
-        return [self nextObject];
+        pageEnum = [[DBBtreePageEnumerator alloc] initWithReader:self.reader rootPage:page];
+        [self.pageEnums addObject:pageEnum];
     }
+
+    return [self nextObject];
 }
 
 @end

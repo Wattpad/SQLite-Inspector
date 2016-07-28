@@ -37,7 +37,7 @@
         size_t i = 0;
         uint64_t payloadSize = 0;
         // Read either left child page number or the payload size
-        if (cellType == DBBtreeCellTypeTableInterior) {
+        if (cellType == DBBtreeCellTypeTableInterior || cellType == DBBtreeCellTypeIndexInterior) {
             _leftChildPageNumber = ntohl(*(uint32_t *)&bytes[i]);
             i += 4;
         } else {

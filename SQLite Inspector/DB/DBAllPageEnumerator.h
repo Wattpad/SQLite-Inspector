@@ -1,5 +1,5 @@
 //
-//  DBFreelistEnumerator.h
+//  DBAllPageEnumerator.h
 //  SQLite Inspector
 //
 //  Created by R. Tony Goold on 27.07.2016.
@@ -10,13 +10,9 @@
 
 #import "DBPage.h"
 
-@class DBFreelistTrunkPage;
 @class DBReader;
 
-/**
- *  Enumerates all the freelist pages (trunk and leaf) in the database.
- */
-@interface DBFreelistEnumerator : NSEnumerator<id<DBPage>>
+@interface DBAllPageEnumerator : NSEnumerator <id<DBPage>>
 
 - (instancetype)initWithReader:(DBReader *)reader;
 

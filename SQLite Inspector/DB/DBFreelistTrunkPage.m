@@ -50,7 +50,7 @@ typedef struct {
     const NSUInteger size = ntohl(header->numLeaves);
     NSMutableIndexSet *indices = [[NSMutableIndexSet alloc] init];
     for (NSUInteger i = 0; i < size; ++i) {
-        [indices addIndex:header->leafPageIndices[i]];
+        [indices addIndex:ntohl(header->leafPageIndices[i])];
     }
     return indices;
 }

@@ -14,6 +14,7 @@
 #import "DBBtreePage.h"
 #import "DBFreelistLeafPage.h"
 #import "DBFreelistTrunkPage.h"
+#import "DBIndex.h"
 #import "DBLockBytePage.h"
 #import "DBPayloadPage.h"
 #import "DBPointerMapPage.h"
@@ -55,7 +56,15 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
 }
 
 - (NSUInteger)numPages {
-    return mHeader.sizeInPages;
+    // Legacy versions of SQLite do not maintain the sizeInPages field, and are
+    // identified by also not updating the versionValidFor field.
+    if (mHeader.sizeInPages != 0U && mHeader.fileChangeCounter == mHeader.versionValidFor) {
+        return mHeader.sizeInPages;
+    } else {
+        [mHandle seekToEndOfFile];
+        NSUInteger size = [mHandle offsetInFile];
+        return size / mHeader.pageSize;
+    }
 }
 
 - (NSUInteger)pageSize {
@@ -83,20 +92,54 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
     return tables;
 }
 
+- (NSArray<DBIndex *> *)indices {
+    NSMutableArray<DBIndex *> *indices = [[NSMutableArray alloc] init];
+    DBTableEnumerator *enumerator = [[DBTableEnumerator alloc] initWithReader:self
+                                                                     rootPage:self.rootBtreePage];
+    for (DBBtreeCell *cell in enumerator) {
+        // Should be [ type, name, tbl_name, rootpage, sql ]
+        NSArray<id> *columns = [self objectsForCell:cell];
+        NSAssert(columns.count == 5U, @"Expected 5 columns in table definition, found %lu", (unsigned long)columns.count);
+        if (![columns[0] isEqualToString:@"index"]) {
+            continue;
+        }
+        [indices addObject:[[DBIndex alloc] initWithName:columns[1]
+                                                   table:columns[2]
+                                                rootPage:[columns[3] unsignedIntegerValue]
+                                                     sql:columns[4]]];
+    }
+    return indices;
+}
+
 - (DBBtreePage *)rootBtreePage {
     return [self pageAtIndex:1 class:[DBBtreePage class]];
+}
+
+- (NSUInteger)firstFreePageNumber {
+    return mHeader.firstFreePageNumber;
 }
 
 - (DBPointerMapPage *)firstPointerMapPage {
     if (mHeader.largestRootPageNumber == 0U) {
         return nil;
     } else {
-        return [self pageAtIndex:2U class:[DBPayloadPage class]];
+        return [self pageAtIndex:2U class:[DBPointerMapPage class]];
     }
+}
+
+- (NSUInteger)lockBytePageNumber {
+    // The lock byte page offset is a multiple of 65536, the largest supported
+    // page size, so this will always divide evenly.
+    NSUInteger pageNumber = kLockBytePageOffset / self.pageSize + 1;
+    return pageNumber <= self.numPages ? pageNumber : 0;
 }
 
 - (DBBtreePage *)btreePageAtIndex:(NSUInteger)index {
     return [self pageAtIndex:index class:[DBBtreePage class]];
+}
+
+- (DBLockBytePage *)lockBytePage {
+    return [self pageAtIndex:self.lockBytePageNumber class:[DBLockBytePage class]];
 }
 
 - (DBFreelistTrunkPage *)freelistTrunkPageAtIndex:(NSUInteger)index {

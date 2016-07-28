@@ -23,13 +23,13 @@
 
 @implementation DBFreelistEnumerator
 
-- (instancetype)initWithReader:(DBReader *)reader rootPage:(DBFreelistTrunkPage *)rootPage {
+- (instancetype)initWithReader:(DBReader *)reader {
     self = [super init];
     if (self) {
         _reader = reader;
-        _leafPageNumbers = [rootPage.leafPageNumbers copy];
-        _nextLeaf = _leafPageNumbers.firstIndex;
-        _nextTrunk = rootPage.nextFreelistPageIndex;
+        _leafPageNumbers = [[NSIndexSet alloc] init];
+        _nextLeaf = NSNotFound;
+        _nextTrunk = reader.firstFreePageNumber;
     }
     return self;
 }

@@ -56,6 +56,7 @@ typedef struct __attribute((packed))__ {
 - (instancetype)initWithIndex:(NSUInteger)index
                          data:(NSData *)data
                  reservedSize:(NSUInteger)reservedSize {
+    NSAssert(index > 0U, @"Invalid page index");
     self = [super init];
     if (self) {
         mIndex = index;
