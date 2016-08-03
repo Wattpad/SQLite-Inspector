@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong, readonly) DBReader *reader;
 
+- (IBAction)visualizeDocument:(id)sender;
+
 @end

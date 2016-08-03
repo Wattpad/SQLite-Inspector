@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EA20A1281D513D9F00DF6047 /* VisualizationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EA20A1271D513D9F00DF6047 /* VisualizationViewController.m */; };
+		EA20A12B1D523F2100DF6047 /* VisualizationGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA20A12A1D523F2100DF6047 /* VisualizationGenerator.m */; };
 		EA9CE1651D491BA900A1D406 /* DBFreelistLeafPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE1641D491BA900A1D406 /* DBFreelistLeafPage.m */; };
 		EA9CE1681D491C7500A1D406 /* DBBtreePageEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE1671D491C7500A1D406 /* DBBtreePageEnumerator.m */; };
 		EA9CE16B1D491ED100A1D406 /* DBFreelistEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE16A1D491ED100A1D406 /* DBFreelistEnumerator.m */; };
@@ -37,6 +39,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EA20A1261D513D9F00DF6047 /* VisualizationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisualizationViewController.h; sourceTree = "<group>"; };
+		EA20A1271D513D9F00DF6047 /* VisualizationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualizationViewController.m; sourceTree = "<group>"; };
+		EA20A1291D523F2100DF6047 /* VisualizationGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisualizationGenerator.h; sourceTree = "<group>"; };
+		EA20A12A1D523F2100DF6047 /* VisualizationGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisualizationGenerator.m; sourceTree = "<group>"; };
 		EA9CE1631D491BA900A1D406 /* DBFreelistLeafPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBFreelistLeafPage.h; sourceTree = "<group>"; };
 		EA9CE1641D491BA900A1D406 /* DBFreelistLeafPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBFreelistLeafPage.m; sourceTree = "<group>"; };
 		EA9CE1661D491C7500A1D406 /* DBBtreePageEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBBtreePageEnumerator.h; sourceTree = "<group>"; };
@@ -125,10 +131,14 @@
 			children = (
 				EACAF4051D2EB0ED001E1EDE /* AppDelegate.h */,
 				EACAF4061D2EB0ED001E1EDE /* AppDelegate.m */,
-				EACAF40B1D2EB0ED001E1EDE /* ViewController.h */,
-				EACAF40C1D2EB0ED001E1EDE /* ViewController.m */,
 				EACAF40E1D2EB0ED001E1EDE /* Document.h */,
 				EACAF40F1D2EB0ED001E1EDE /* Document.m */,
+				EACAF40B1D2EB0ED001E1EDE /* ViewController.h */,
+				EACAF40C1D2EB0ED001E1EDE /* ViewController.m */,
+				EA20A1291D523F2100DF6047 /* VisualizationGenerator.h */,
+				EA20A12A1D523F2100DF6047 /* VisualizationGenerator.m */,
+				EA20A1261D513D9F00DF6047 /* VisualizationViewController.h */,
+				EA20A1271D513D9F00DF6047 /* VisualizationViewController.m */,
 				EACAF4111D2EB0ED001E1EDE /* Assets.xcassets */,
 				EACAF4131D2EB0ED001E1EDE /* Main.storyboard */,
 				EACAF4161D2EB0ED001E1EDE /* Info.plist */,
@@ -266,8 +276,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EACAF4101D2EB0ED001E1EDE /* Document.m in Sources */,
+				EA20A1281D513D9F00DF6047 /* VisualizationViewController.m in Sources */,
 				EACAF41F1D2EB3F5001E1EDE /* DBHeader.m in Sources */,
 				EAC8F58F1D383C0100CDAAE3 /* DBTable.m in Sources */,
+				EA20A12B1D523F2100DF6047 /* VisualizationGenerator.m in Sources */,
 				EA9CE16B1D491ED100A1D406 /* DBFreelistEnumerator.m in Sources */,
 				EACAF4321D2EC913001E1EDE /* DBUnrecognizedPage.m in Sources */,
 				EA9CE1741D493B3C00A1D406 /* DBPointerMapPageEnumerator.m in Sources */,

@@ -8,13 +8,18 @@
 
 #import "Document.h"
 
+#import "DBAllPageEnumerator.h"
 #import "DBBtreePage.h"
 #import "DBReader.h"
 #import "DBRecord.h"
 #import "DBTable.h"
 #import "DBTableEnumerator.h"
+#import "VisualizationGenerator.h"
+#import "VisualizationViewController.h"
 
 @interface Document ()
+
+@property (nonatomic, weak) NSWindowController *visualizationWindowController;
 
 @end
 
@@ -37,7 +42,7 @@
     NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
     NSWindowController *controller = [storyboard instantiateControllerWithIdentifier:@"Document Window Controller"];
     NSViewController *content = controller.contentViewController;
-    content.representedObject = self;
+    content.representedObject = self.reader;
     [self addWindowController:controller];
 }
 
@@ -50,21 +55,27 @@
 
 - (BOOL)readFromURL:(NSURL *)url ofType:(NSString *)typeName error:(NSError * _Nullable __autoreleasing *)outError {
     _reader = [[DBReader alloc] initWithFile:url.path];
-    if (!_reader) {
-        return NO;
-    }
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        for (DBTable *table in _reader.tables) {
-            NSLog(@"Table: %@", table.name);
-        }
-    });
-
-    return YES;
+    return _reader != nil;
 }
 
 - (BOOL)isEntireFileLoaded {
     return NO;
+}
+
+- (IBAction)visualizeDocument:(id)sender {
+    if (self.visualizationWindowController) {
+        [self.visualizationWindowController showWindow:sender];
+        return;
+    }
+
+    NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:nil];
+    NSWindowController *imageWindowController = [storyboard instantiateControllerWithIdentifier:@"Visualizer Window Controller"];
+    NSViewController *imageController = imageWindowController.contentViewController;
+    imageController.representedObject = [[VisualizationGenerator alloc] initWithReader:self.reader];
+
+    [self addWindowController:imageWindowController];
+    [imageWindowController showWindow:sender];
+    self.visualizationWindowController = imageWindowController;
 }
 
 @end
