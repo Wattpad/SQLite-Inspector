@@ -11,8 +11,12 @@
 @class DBPointerMapPage;
 @class DBReader;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface DBPointerMapPageEnumerator : NSEnumerator<DBPointerMapPage *>
 
 - (instancetype)initWithReader:(DBReader *)reader;
 
 @end
+
+NS_ASSUME_NONNULL_END

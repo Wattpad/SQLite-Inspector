@@ -11,6 +11,7 @@
 #import "DBAllPageEnumerator.h"
 #import "DBBtreePage.h"
 #import "DBReader.h"
+#import "Visualization.h"
 
 @interface VisualizationGenerator ()
 
@@ -28,7 +29,7 @@
     return self;
 }
 
-- (NSImage *)generateImageFittingSize:(CGSize)size {
+- (Visualization *)visualizationFittingSize:(CGSize)size {
     NSAssert(size.width >= 1.0, @"Width must be at least 1.0");
     NSAssert(size.height >= 1.0, @"Height must be at least 1.0");
 
@@ -76,8 +77,13 @@
 
     DBAllPageEnumerator *allEnum = [[DBAllPageEnumerator alloc] initWithReader:self.reader];
     id<DBPage> page;
+    NSMutableArray<NSNumber *> *pageTypes = [[NSMutableArray alloc] initWithCapacity:numPages];
+    for (NSUInteger i = 0U; i < numPages; ++i) {
+        [pageTypes addObject:@(DBPageTypeUnknown)];
+    }
     while ((page = [allEnum nextObject]) != nil) {
         NSUInteger index = page.index - 1U;
+        pageTypes[index] = @(page.pageType);
         switch (page.pageType) {
             case DBPageTypeBtree: {
                 DBBtreePage *tree = (DBBtreePage *)page;
@@ -114,7 +120,10 @@
     }
 
     NSRect frame = NSMakeRect(0.0, 0.0, width * blockSize, height * blockSize);
-    return [[NSImage alloc] initWithCGImage:bitmap.CGImage size:frame.size];
+    NSImage *image = [[NSImage alloc] initWithCGImage:bitmap.CGImage size:frame.size];
+    return [[Visualization alloc] initWithImage:image
+                                       cellSize:CGSizeMake(blockSize, blockSize)
+                                      pageTypes:pageTypes];
 }
 
 @end

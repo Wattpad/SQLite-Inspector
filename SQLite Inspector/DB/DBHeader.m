@@ -75,7 +75,8 @@ static DBHeader_t HeaderFromData(const char *data) {
 }
 
 - (NSUInteger)pageSize {
-    return mHeader.pageSize;
+    // TODO: Provide a way of specifying an override
+    return mHeader.pageSize > 0 ? mHeader.pageSize : 4096;
 }
 
 - (NSUInteger)pageReserveSize {

@@ -17,10 +17,13 @@ typedef NS_ENUM(NSUInteger, DBPageType) {
     DBPageTypeUnknown
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol DBPage <NSObject>
 
 @property (nonatomic, readonly) NSUInteger index;
 @property (nonatomic, readonly) DBPageType pageType;
+@property (nonatomic, readonly, getter=isCorrupt) BOOL corrupt;
 
 + (instancetype)alloc;
 
@@ -29,3 +32,5 @@ typedef NS_ENUM(NSUInteger, DBPageType) {
                  reservedSize:(NSUInteger)reservedSize;
 
 @end
+
+NS_ASSUME_NONNULL_END

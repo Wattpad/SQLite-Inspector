@@ -13,6 +13,8 @@
 @class DBFreelistTrunkPage;
 @class DBReader;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Enumerates all the freelist pages (trunk and leaf) in the database.
  */
@@ -21,3 +23,5 @@
 - (instancetype)initWithReader:(DBReader *)reader;
 
 @end
+
+NS_ASSUME_NONNULL_END

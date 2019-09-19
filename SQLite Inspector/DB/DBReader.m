@@ -22,12 +22,14 @@
 #import "DBTable.h"
 #import "DBTableEnumerator.h"
 #import "DBUnrecognizedPage.h"
+#import "DBWalReader.h"
 
 // If the database is large enough to have a page at this offset, it is always
 // the lock-byte page.
 static const NSUInteger kLockBytePageOffset = 0x40000000;
 
 @interface DBReader () {
+    NSString *mPath;
     DBHeader *mHeader;
     NSFileHandle *mHandle;
 }
@@ -49,6 +51,7 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
     }
     self = [super init];
     if (self) {
+        mPath = [path copy];
         mHeader = header;
         mHandle = input;
     }
@@ -72,12 +75,15 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
 }
 
 - (NSArray<DBTable *> *)tables {
+    DBBtreePage *root = self.rootBtreePage;
+    if (root.corrupt) {
+        NSLog(@"This isn't going to end well");
+    }
     NSMutableArray<DBTable *> *tables = [[NSMutableArray alloc] init];
     [tables addObject:[[DBTable alloc] initWithName:@"sqlite_master"
                                            rootPage:1U
                                                 sql:@"CREATE TABLE sqlite_master(type text, name text, tbl_name text, rootpage integer, sql text)"]];
-    DBTableEnumerator *enumerator = [[DBTableEnumerator alloc] initWithReader:self
-                                                                     rootPage:self.rootBtreePage];
+    DBTableEnumerator *enumerator = [[DBTableEnumerator alloc] initWithReader:self rootPage:root];
     for (DBBtreeCell *cell in enumerator) {
         // Should be [ type, name, tbl_name, rootpage, sql ]
         NSArray<id> *columns = [self objectsForCell:cell];
@@ -93,9 +99,12 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
 }
 
 - (NSArray<DBIndex *> *)indices {
+    DBBtreePage *root = self.rootBtreePage;
+    if (root.corrupt) {
+        NSLog(@"This isn't going to end well");
+    }
     NSMutableArray<DBIndex *> *indices = [[NSMutableArray alloc] init];
-    DBTableEnumerator *enumerator = [[DBTableEnumerator alloc] initWithReader:self
-                                                                     rootPage:self.rootBtreePage];
+    DBTableEnumerator *enumerator = [[DBTableEnumerator alloc] initWithReader:self rootPage:root];
     for (DBBtreeCell *cell in enumerator) {
         // Should be [ type, name, tbl_name, rootpage, sql ]
         NSArray<id> *columns = [self objectsForCell:cell];
@@ -132,6 +141,10 @@ static const NSUInteger kLockBytePageOffset = 0x40000000;
     // page size, so this will always divide evenly.
     NSUInteger pageNumber = kLockBytePageOffset / self.pageSize + 1;
     return pageNumber <= self.numPages ? pageNumber : 0;
+}
+
+- (DBWalReader *)writeAheadLogReader {
+    return [[DBWalReader alloc] initWithFile:[mPath stringByAppendingString:@"-wal"]];
 }
 
 - (DBBtreePage *)btreePageAtIndex:(NSUInteger)index {

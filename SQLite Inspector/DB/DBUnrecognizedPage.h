@@ -8,6 +8,8 @@
 
 #import "DBPage.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface DBUnrecognizedPage : NSObject <DBPage>
 
 - (instancetype)initWithIndex:(NSUInteger)index
@@ -15,3 +17,5 @@
                  reservedSize:(NSUInteger)reservedSize;
 
 @end
+
+NS_ASSUME_NONNULL_END

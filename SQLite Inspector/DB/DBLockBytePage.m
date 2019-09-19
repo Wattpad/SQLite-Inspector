@@ -33,4 +33,9 @@
     return DBPageTypeLockByte;
 }
 
+- (BOOL)isCorrupt {
+    // The Lock-Byte page is reserved for use by VFS and does not contain SQLite data.
+    return NO;
+}
+
 @end

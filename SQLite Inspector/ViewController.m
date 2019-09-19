@@ -14,6 +14,9 @@
 #import "DBIndex.h"
 #import "DBReader.h"
 #import "DBTable.h"
+#import "DBWalFrameHeader.h"
+#import "DBWalHeader.h"
+#import "DBWalReader.h"
 
 static BOOL NumbersEqual(NSNumber *n1, NSNumber *n2) {
     if (!n1 || !n2) {
@@ -137,6 +140,8 @@ static BOOL NumbersEqual(NSNumber *n1, NSNumber *n2) {
     self.indexEntries = indexEntries;
 
     [self.outlineView reloadData];
+
+    [self debugWal];
 }
 
 - (NSInteger)outlineView:(NSOutlineView *)outlineView numberOfChildrenOfItem:(id)item {
@@ -314,6 +319,33 @@ static BOOL NumbersEqual(NSNumber *n1, NSNumber *n2) {
         NSAssert(NO, @"Unexpected data type");
         return isName ? [object description] : [object className];
     }
+}
+
+- (void)debugWal {
+    DBWalReader *reader = [self.reader writeAheadLogReader];
+    if (!reader) {
+        NSLog(@"Unable to open write-ahead log");
+        return;
+    }
+
+    const NSUInteger salt1 = reader.header.salt1;
+    const NSUInteger salt2 = reader.header.salt2;
+    NSLog(@"WAL salt: %#08lx %#08lx", (unsigned long)salt1, (unsigned long)salt2);
+    NSLog(@"WAL frames:");
+    NSArray<DBWalFrameHeader *> *frames = [reader getFrames];
+    [frames enumerateObjectsUsingBlock:^(DBWalFrameHeader * _Nonnull frame, NSUInteger idx, BOOL * _Nonnull stop) {
+        if (frame.salt1 != salt1 || frame.salt2 != salt2) {
+            NSLog(@"Skipping remaining %ld pages (invalid salt)", (unsigned long)(frames.count - idx));
+            *stop = YES;
+            return;
+        }
+
+        if (frame.isCommitFrame) {
+            NSLog(@"- Page %lu (COMMIT: %lu db pages)", (unsigned long)frame.pageNumber, (unsigned long)frame.dbPageCount);
+        } else {
+            NSLog(@"- Page %lu", (unsigned long)frame.pageNumber);
+        }
+    }];
 }
 
 @end

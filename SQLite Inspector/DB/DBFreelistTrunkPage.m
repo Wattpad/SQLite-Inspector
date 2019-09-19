@@ -16,6 +16,7 @@ typedef struct {
 
 @interface DBFreelistTrunkPage () {
     NSUInteger mIndex;
+    NSUInteger mUsableSize;
     NSData *mData;
 }
 @end
@@ -25,9 +26,12 @@ typedef struct {
 - (instancetype)initWithIndex:(NSUInteger)index
                          data:(NSData *)data
                  reservedSize:(NSUInteger)reservedSize {
+    NSAssert(index > 0U, @"Invalid page index");
+    NSAssert(data.length >= reservedSize, @"Reserved size exceeds data length");
     self = [super init];
     if (self) {
         mIndex = index;
+        mUsableSize = data.length - reservedSize;
         mData = [data copy];
     }
     return self;
@@ -41,15 +45,25 @@ typedef struct {
     return DBPageTypeFreelist;
 }
 
+- (BOOL)isCorrupt {
+    const DBFreelist_t *header = mData.bytes;
+    const NSUInteger size = ntohl(header->numLeaves) * 4U;
+    if (size + 8U > mUsableSize) {
+        NSLog(@"DBFreelistTrunkPage is corrupt because it is not big enough to contain its leaf list");
+        return YES;
+    }
+    return NO;
+}
+
 - (NSUInteger)nextFreelistPageIndex {
     return ntohl(((DBFreelist_t *)mData.bytes)->nextPageIndex);
 }
 
 - (NSIndexSet *)leafPageNumbers {
     const DBFreelist_t *header = mData.bytes;
-    const NSUInteger size = ntohl(header->numLeaves);
+    const NSUInteger count = ntohl(header->numLeaves);
     NSMutableIndexSet *indices = [[NSMutableIndexSet alloc] init];
-    for (NSUInteger i = 0; i < size; ++i) {
+    for (NSUInteger i = 0; i < count; ++i) {
         [indices addIndex:ntohl(header->leafPageIndices[i])];
     }
     return indices;

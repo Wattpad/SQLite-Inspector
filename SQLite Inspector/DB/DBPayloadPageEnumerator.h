@@ -12,9 +12,13 @@
 @class DBPayloadPage;
 @class DBReader;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface DBPayloadPageEnumerator : NSEnumerator<DBPayloadPage *>
 
 - (instancetype)initWithReader:(DBReader *)reader
                           cell:(DBBtreeCell *)cell;
 
 @end
+
+NS_ASSUME_NONNULL_END

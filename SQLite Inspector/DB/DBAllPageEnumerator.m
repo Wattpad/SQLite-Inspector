@@ -71,37 +71,53 @@
 }
 
 - (id<DBPage>)nextObject {
-    id<DBPage> page;
+    id<DBPage> page = nil;
     while (page == nil) {
         NSEnumerator<id<DBPage>> *enumerator = self.enums.lastObject;
         if (enumerator == nil) {
+            NSLog(@"Ran out of page enumerators, done iterating");
             break;
         }
 
         page = [enumerator nextObject];
         if (page == nil) {
             [self.enums removeLastObject];
+            NSLog(@"Exhausted %@", NSStringFromClass([enumerator class]));
             continue;
         }
 
         if (page.pageType == DBPageTypeBtree) {
+            NSLog(@"Enumerating a Btree page");
             DBBtreePage *tree = (DBBtreePage *)page;
             if (tree.isLeaf) {
+                NSLog(@"  Adding overflow payload enumerators for a Btree leaf page");
                 DBBtreeCellEnumerator *cellEnum = [[DBBtreeCellEnumerator alloc] initWithReader:self.reader
                                                                                        rootPage:tree];
                 DBBtreeCell *cell;
                 while ((cell = [cellEnum nextObject]) != nil) {
                     if (cell.firstOverflowPageNumber != 0U) {
+                        NSLog(@"    Adding a payload enumerator for page %llu", (unsigned long long)cell.firstOverflowPageNumber);
                         DBPayloadPageEnumerator *payloadEnum = [[DBPayloadPageEnumerator alloc] initWithReader:self.reader
                                                                                                           cell:cell];
                         [self.enums addObject:payloadEnum];
                     }
                 }
             } else {
+                NSLog(@"  Adding a Btree page enumerator for a Btree interior page");
                 DBBtreePageEnumerator *pageEnum = [[DBBtreePageEnumerator alloc] initWithReader:self.reader
                                                                                        rootPage:tree];
                 [self.enums addObject:pageEnum];
             }
+        } else {
+            NSString *pageName;
+            switch (page.pageType) {
+                case DBPageTypeFreelist: pageName = @"Freelist Block"; break;
+                case DBPageTypeLockByte: pageName = @"Lock-Byte"; break;
+                case DBPageTypePayload: pageName = @"Overflow Payload"; break;
+                case DBPageTypePointerMap: pageName = @"Pointer Map"; break;
+                default: pageName = @"Unknown"; break;
+            }
+            NSLog(@"Enumerating a %@ page", pageName);
         }
     }
     return page;

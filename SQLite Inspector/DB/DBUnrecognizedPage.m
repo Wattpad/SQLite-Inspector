@@ -33,4 +33,9 @@
     return DBPageTypeUnknown;
 }
 
+- (BOOL)isCorrupt {
+    NSLog(@"DBUnrecognizedPage is always an indication of corruption");
+    return YES;
+}
+
 @end

@@ -57,6 +57,7 @@ typedef struct __attribute((packed))__ {
                          data:(NSData *)data
                  reservedSize:(NSUInteger)reservedSize {
     NSAssert(index > 0U, @"Invalid page index");
+    NSAssert(data.length >= reservedSize, @"Reserved size exceeds data length");
     self = [super init];
     if (self) {
         mIndex = index;
@@ -87,16 +88,24 @@ typedef struct __attribute((packed))__ {
     return &mData.bytes[mIndex == 1U ? 100U : 0U];
 }
 
+- (const uint16_t *)cellPointerArray {
+    return (uint16_t *)([self headerPointer] + (self.isLeaf ? 8 : 12));
+}
+
 - (BOOL)isLeaf {
     // The leaf flag is contained in the 4th least significant bit
     return (mHeader.treeType & 0x08) != 0;
 }
 
 - (BOOL)isIndexTree {
+    // If the tree is an index type, then the 2nd least significant bit is set,
+    // otherwise it is a table type and the 1st and 3rd least significant bits are set
     return (mHeader.treeType & 0x02) != 0;
 }
 
 - (BOOL)isZeroed {
+    // This assumes pages are 4096 bytes in size, instead it should really adjust the
+    // page size to match
     static const char kZeroes[4096];
     NSData *zeroed = [[NSData alloc] initWithBytesNoCopy:(void * _Nonnull)kZeroes
                                                   length:4096U
@@ -105,15 +114,85 @@ typedef struct __attribute((packed))__ {
 }
 
 - (BOOL)isCorrupt {
+    // Check tree type value is valid
     switch (mHeader.treeType) {
         case 0x02:
         case 0x05:
         case 0x0A:
         case 0x0D:
-            return NO;
+            break;
         default:
+            NSLog(@"DBBtreePage is corrupt because of unexpected tree type %x", mHeader.treeType);
             return YES;
     }
+
+    // Check free/used space counts are valid and accurate
+    NSUInteger numBytes = mUsableSize;
+    const NSUInteger dbHeaderSize = (mIndex == 1U) ? 100U : 0U;
+    if (numBytes < dbHeaderSize) {
+        NSLog(@"DBBtreePage is corrupt because it is not big enough to contain the DB header");
+        return YES;
+    }
+    numBytes -= dbHeaderSize;
+
+    const NSUInteger pageHeaderSize = (self.isLeaf) ? 8U : 12U;
+    if (numBytes < pageHeaderSize) {
+        NSLog(@"DBBtreePage is corrupt because it is not big enough to contain its page header");
+        return YES;
+    }
+    numBytes -= pageHeaderSize;
+
+    const NSUInteger cellPointerSize = self.numCells * 2U;
+    if (numBytes < cellPointerSize) {
+        NSLog(@"DBBtreePage is corrupt because it is not big enough to contain its cell pointer array");
+        return YES;
+    }
+    numBytes -= cellPointerSize;
+
+    // Special case for empty 64K pages with no reserved space, 0 means 65536
+    const NSUInteger cellContentOffset = (mHeader.cellContentOffset == 0U) ? 65536U : mHeader.cellContentOffset;
+    if (cellContentOffset < pageHeaderSize + cellPointerSize) {
+        NSLog(@"DBBtreePage is corrupt because the cell content region overlaps the header area");
+        return YES;
+    }
+    const NSUInteger unallocatedSize = cellContentOffset - (pageHeaderSize + cellPointerSize);
+    if (numBytes < unallocatedSize) {
+        NSLog(@"DBBtreePage is corrupt because the cell content region starts beyond the usable space");
+        return YES;
+    }
+    numBytes -= unallocatedSize;
+
+    // Make sure the content cells are all at valid offsets
+    const uint16_t * const cellPointers = [self cellPointerArray];
+    const NSUInteger cellContentEndOffset = cellContentOffset + numBytes;
+    for (NSUInteger i = 0; i < self.numCells; ++i) {
+        const uint16_t cellPointer = ntohs(cellPointers[i]);
+        if (cellPointer < cellContentOffset || cellPointer >= cellContentEndOffset) {
+            NSLog(@"DBBtreePage is corrupt because a cell pointer points outside the content region");
+            return YES;
+        }
+    }
+
+    if (numBytes < mHeader.numFragmentedFreeBytes) {
+        NSLog(@"DBBtreePage is corrupt because it is not big enough to contain its fragmented free bytes");
+        return YES;
+    }
+    numBytes -= mHeader.numFragmentedFreeBytes;
+
+    // Use a conservative estimate to determine the minimum number of bytes for content cells
+    NSUInteger minCellSize;
+    if (self.isIndexTree) {
+        minCellSize = self.isLeaf ? 2 : 6;
+    } else {
+        minCellSize = self.isLeaf ? 3 : 5;
+    }
+    if (numBytes < minCellSize * self.numCells) {
+        NSLog(@"DBBtreePage is corrupt because it is not big enough to contain its cell content");
+        return YES;
+    }
+    // numBytes -= minCellSize * self.numCells;
+
+    return NO;
 }
 
 - (NSUInteger)numCells {
@@ -130,7 +209,7 @@ typedef struct __attribute((packed))__ {
          (unsigned long)index, (unsigned long)self.numCells];
     }
     const char * const bytes = mData.bytes;
-    const uint16_t * const cellOffsets = (uint16_t *)([self headerPointer] + (self.isLeaf ? 8 : 12));
+    const uint16_t * const cellOffsets = [self cellPointerArray];
     const uint16_t offset = ntohs(cellOffsets[index]);
     DBBtreeCellType type;
     // The index flag is contained in the 2nd least significant bit

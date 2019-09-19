@@ -15,6 +15,8 @@ typedef NS_ENUM(NSUInteger, DBBtreeCellType) {
     DBBtreeCellTypeIndexInterior
 };
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface DBBtreeCell : NSObject
 
 @property (nonatomic, readonly) DBBtreeCellType cellType;
@@ -28,3 +30,5 @@ typedef NS_ENUM(NSUInteger, DBBtreeCellType) {
                   maxUsableSpace:(NSUInteger)maxUsableSpace;
 
 @end
+
+NS_ASSUME_NONNULL_END

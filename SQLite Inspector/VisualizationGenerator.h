@@ -9,6 +9,7 @@
 #import <AppKit/AppKit.h>
 
 @class DBReader;
+@class Visualization;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -27,15 +28,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithReader:(DBReader *)reader;
 
 /**
- *  Generates a visualization of the generator's database fitting a given
- *  dimension. The generator will attempt to fill as much of the space available
- *  as possible.
+ *  Generates a visualization of the generator's database fitting a given size.
+ *  The generator will attempt to fill as much of the space available as
+ *  possible.
  *
- *  @param size The maximum dimensions of the image.
+ *  @param size The maximum size of the image.
  *
  *  @return A visualization of the database.
  */
-- (NSImage *)generateImageFittingSize:(CGSize)size;
+- (Visualization *)visualizationFittingSize:(CGSize)size;
 
 @end
 

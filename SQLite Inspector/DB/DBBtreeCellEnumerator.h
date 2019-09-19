@@ -12,6 +12,8 @@
 @class DBBtreePage;
 @class DBReader;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Enumerates all the cells in a leaf B-tree page.
  */
@@ -21,3 +23,5 @@
                       rootPage:(DBBtreePage *)rootPage;
 
 @end
+
+NS_ASSUME_NONNULL_END

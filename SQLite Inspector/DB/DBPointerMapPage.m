@@ -58,6 +58,16 @@ typedef struct __attribute((packed))__ {
     return DBPageTypePointerMap;
 }
 
+- (BOOL)isCorrupt {
+    for (DBPointerMap *map in self.pointers) {
+        if (map.pageType == DBPageTypeUnknown) {
+            NSLog(@"DBPointerMapPage is corrupt because it contains an unrecognized page type pointer");
+            return YES;
+        }
+    }
+    return NO;
+}
+
 - (NSArray<DBPointerMap *> *)pointers {
     const NSUInteger numPointers = self.numPointers;
     NSMutableArray<DBPointerMap *> *pointers = [[NSMutableArray alloc] initWithCapacity:numPointers];
@@ -76,6 +86,7 @@ typedef struct __attribute((packed))__ {
                                                           page:self.index + i + 1U
                                                         parent:ntohl(entry->parent)];
         [pointers addObject:map];
+        ++entry;
     }
     return pointers;
 }

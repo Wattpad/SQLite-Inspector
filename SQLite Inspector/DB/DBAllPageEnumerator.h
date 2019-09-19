@@ -12,8 +12,12 @@
 
 @class DBReader;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface DBAllPageEnumerator : NSEnumerator <id<DBPage>>
 
 - (instancetype)initWithReader:(DBReader *)reader;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface DBIndex : NSObject
 
 @property (nonatomic, strong, readonly) NSString *name;
@@ -21,3 +23,5 @@
                          sql:(NSString *)sql;
 
 @end
+
+NS_ASSUME_NONNULL_END

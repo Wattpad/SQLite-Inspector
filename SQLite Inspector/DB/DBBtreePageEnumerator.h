@@ -11,6 +11,8 @@
 @class DBBtreePage;
 @class DBReader;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  *  Enumerates all the child pages of an internal B-tree page.
  *
@@ -22,3 +24,5 @@
                       rootPage:(DBBtreePage *)rootPage;
 
 @end
+
+NS_ASSUME_NONNULL_END

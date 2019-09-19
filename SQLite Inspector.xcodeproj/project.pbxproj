@@ -17,6 +17,10 @@
 		EA9CE1741D493B3C00A1D406 /* DBPointerMapPageEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE1731D493B3C00A1D406 /* DBPointerMapPageEnumerator.m */; };
 		EA9CE1771D49411200A1D406 /* DBAllPageEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE1761D49411200A1D406 /* DBAllPageEnumerator.m */; };
 		EA9CE17A1D4A7B0400A1D406 /* DBIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = EA9CE1791D4A7B0400A1D406 /* DBIndex.m */; };
+		EAA2DBF31E09AA2B00D4CF06 /* DBWalFrameEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2DBF21E09AA2B00D4CF06 /* DBWalFrameEnumerator.m */; };
+		EAA2DBF61E09AF4400D4CF06 /* DBWalValidFrameEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2DBF51E09AF4400D4CF06 /* DBWalValidFrameEnumerator.m */; };
+		EAA2DBF91E09B77B00D4CF06 /* DBWalChecksum.m in Sources */ = {isa = PBXBuildFile; fileRef = EAA2DBF81E09B77B00D4CF06 /* DBWalChecksum.m */; };
+		EAC6C6541D64E43B0015A6B0 /* Visualization.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC6C6531D64E43B0015A6B0 /* Visualization.m */; };
 		EAC8F58F1D383C0100CDAAE3 /* DBTable.m in Sources */ = {isa = PBXBuildFile; fileRef = EAC8F58E1D383C0100CDAAE3 /* DBTable.m */; };
 		EACAF4071D2EB0ED001E1EDE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4061D2EB0ED001E1EDE /* AppDelegate.m */; };
 		EACAF40A1D2EB0ED001E1EDE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4091D2EB0ED001E1EDE /* main.m */; };
@@ -33,6 +37,9 @@
 		EACAF4321D2EC913001E1EDE /* DBUnrecognizedPage.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4311D2EC913001E1EDE /* DBUnrecognizedPage.m */; };
 		EACAF4351D2ECA33001E1EDE /* DBReader.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4341D2ECA33001E1EDE /* DBReader.m */; };
 		EACAF4381D2EF642001E1EDE /* DBBtreeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EACAF4371D2EF642001E1EDE /* DBBtreeCell.m */; };
+		EAD013811E088BE500AA7A43 /* DBWalHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD013801E088BE500AA7A43 /* DBWalHeader.m */; };
+		EAD013841E0890E400AA7A43 /* DBWalFrameHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD013831E0890E400AA7A43 /* DBWalFrameHeader.m */; };
+		EAD013871E08942900AA7A43 /* DBWalReader.m in Sources */ = {isa = PBXBuildFile; fileRef = EAD013861E08942900AA7A43 /* DBWalReader.m */; };
 		EAEC235B1D33EC0200BDCA45 /* DBVarint.c in Sources */ = {isa = PBXBuildFile; fileRef = EAEC23591D33EC0200BDCA45 /* DBVarint.c */; };
 		EAEC235E1D33ECFA00BDCA45 /* DBRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEC235D1D33ECFA00BDCA45 /* DBRecord.m */; };
 		EAEC23611D35858F00BDCA45 /* DBTableEnumerator.m in Sources */ = {isa = PBXBuildFile; fileRef = EAEC23601D35858F00BDCA45 /* DBTableEnumerator.m */; };
@@ -59,6 +66,14 @@
 		EA9CE1761D49411200A1D406 /* DBAllPageEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAllPageEnumerator.m; sourceTree = "<group>"; };
 		EA9CE1781D4A7B0400A1D406 /* DBIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBIndex.h; sourceTree = "<group>"; };
 		EA9CE1791D4A7B0400A1D406 /* DBIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBIndex.m; sourceTree = "<group>"; };
+		EAA2DBF11E09AA2B00D4CF06 /* DBWalFrameEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBWalFrameEnumerator.h; sourceTree = "<group>"; };
+		EAA2DBF21E09AA2B00D4CF06 /* DBWalFrameEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBWalFrameEnumerator.m; sourceTree = "<group>"; };
+		EAA2DBF41E09AF4400D4CF06 /* DBWalValidFrameEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBWalValidFrameEnumerator.h; sourceTree = "<group>"; };
+		EAA2DBF51E09AF4400D4CF06 /* DBWalValidFrameEnumerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBWalValidFrameEnumerator.m; sourceTree = "<group>"; };
+		EAA2DBF71E09B77B00D4CF06 /* DBWalChecksum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBWalChecksum.h; sourceTree = "<group>"; };
+		EAA2DBF81E09B77B00D4CF06 /* DBWalChecksum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBWalChecksum.m; sourceTree = "<group>"; };
+		EAC6C6521D64E43B0015A6B0 /* Visualization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Visualization.h; sourceTree = "<group>"; };
+		EAC6C6531D64E43B0015A6B0 /* Visualization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Visualization.m; sourceTree = "<group>"; };
 		EAC8F58D1D383C0100CDAAE3 /* DBTable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBTable.h; sourceTree = "<group>"; };
 		EAC8F58E1D383C0100CDAAE3 /* DBTable.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBTable.m; sourceTree = "<group>"; };
 		EACAF4021D2EB0ED001E1EDE /* SQLite Inspector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SQLite Inspector.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -91,6 +106,12 @@
 		EACAF4341D2ECA33001E1EDE /* DBReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBReader.m; sourceTree = "<group>"; };
 		EACAF4361D2EF642001E1EDE /* DBBtreeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBBtreeCell.h; sourceTree = "<group>"; };
 		EACAF4371D2EF642001E1EDE /* DBBtreeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBBtreeCell.m; sourceTree = "<group>"; };
+		EAD0137F1E088BE500AA7A43 /* DBWalHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBWalHeader.h; sourceTree = "<group>"; };
+		EAD013801E088BE500AA7A43 /* DBWalHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBWalHeader.m; sourceTree = "<group>"; };
+		EAD013821E0890E400AA7A43 /* DBWalFrameHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBWalFrameHeader.h; sourceTree = "<group>"; };
+		EAD013831E0890E400AA7A43 /* DBWalFrameHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBWalFrameHeader.m; sourceTree = "<group>"; };
+		EAD013851E08942900AA7A43 /* DBWalReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBWalReader.h; sourceTree = "<group>"; };
+		EAD013861E08942900AA7A43 /* DBWalReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBWalReader.m; sourceTree = "<group>"; };
 		EAEC23591D33EC0200BDCA45 /* DBVarint.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DBVarint.c; sourceTree = "<group>"; };
 		EAEC235A1D33EC0200BDCA45 /* DBVarint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBVarint.h; sourceTree = "<group>"; };
 		EAEC235C1D33ECFA00BDCA45 /* DBRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBRecord.h; sourceTree = "<group>"; };
@@ -135,6 +156,8 @@
 				EACAF40F1D2EB0ED001E1EDE /* Document.m */,
 				EACAF40B1D2EB0ED001E1EDE /* ViewController.h */,
 				EACAF40C1D2EB0ED001E1EDE /* ViewController.m */,
+				EAC6C6521D64E43B0015A6B0 /* Visualization.h */,
+				EAC6C6531D64E43B0015A6B0 /* Visualization.m */,
 				EA20A1291D523F2100DF6047 /* VisualizationGenerator.h */,
 				EA20A12A1D523F2100DF6047 /* VisualizationGenerator.m */,
 				EA20A1261D513D9F00DF6047 /* VisualizationViewController.h */,
@@ -202,6 +225,18 @@
 				EAEC235A1D33EC0200BDCA45 /* DBVarint.h */,
 				EACAF4301D2EC913001E1EDE /* DBUnrecognizedPage.h */,
 				EACAF4311D2EC913001E1EDE /* DBUnrecognizedPage.m */,
+				EAA2DBF71E09B77B00D4CF06 /* DBWalChecksum.h */,
+				EAA2DBF81E09B77B00D4CF06 /* DBWalChecksum.m */,
+				EAD0137F1E088BE500AA7A43 /* DBWalHeader.h */,
+				EAD013801E088BE500AA7A43 /* DBWalHeader.m */,
+				EAA2DBF11E09AA2B00D4CF06 /* DBWalFrameEnumerator.h */,
+				EAA2DBF21E09AA2B00D4CF06 /* DBWalFrameEnumerator.m */,
+				EAD013821E0890E400AA7A43 /* DBWalFrameHeader.h */,
+				EAD013831E0890E400AA7A43 /* DBWalFrameHeader.m */,
+				EAD013851E08942900AA7A43 /* DBWalReader.h */,
+				EAD013861E08942900AA7A43 /* DBWalReader.m */,
+				EAA2DBF41E09AF4400D4CF06 /* DBWalValidFrameEnumerator.h */,
+				EAA2DBF51E09AF4400D4CF06 /* DBWalValidFrameEnumerator.m */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -232,7 +267,7 @@
 		EACAF3FA1D2EB0ED001E1EDE /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "WP Technology Inc.";
 				TargetAttributes = {
 					EACAF4011D2EB0ED001E1EDE = {
@@ -276,18 +311,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				EACAF4101D2EB0ED001E1EDE /* Document.m in Sources */,
+				EAD013811E088BE500AA7A43 /* DBWalHeader.m in Sources */,
 				EA20A1281D513D9F00DF6047 /* VisualizationViewController.m in Sources */,
 				EACAF41F1D2EB3F5001E1EDE /* DBHeader.m in Sources */,
 				EAC8F58F1D383C0100CDAAE3 /* DBTable.m in Sources */,
 				EA20A12B1D523F2100DF6047 /* VisualizationGenerator.m in Sources */,
 				EA9CE16B1D491ED100A1D406 /* DBFreelistEnumerator.m in Sources */,
 				EACAF4321D2EC913001E1EDE /* DBUnrecognizedPage.m in Sources */,
+				EAA2DBF31E09AA2B00D4CF06 /* DBWalFrameEnumerator.m in Sources */,
+				EAA2DBF91E09B77B00D4CF06 /* DBWalChecksum.m in Sources */,
 				EA9CE1741D493B3C00A1D406 /* DBPointerMapPageEnumerator.m in Sources */,
+				EAC6C6541D64E43B0015A6B0 /* Visualization.m in Sources */,
 				EAEC235B1D33EC0200BDCA45 /* DBVarint.c in Sources */,
 				EACAF4221D2EC2E6001E1EDE /* DBFreelistTrunkPage.m in Sources */,
 				EACAF4381D2EF642001E1EDE /* DBBtreeCell.m in Sources */,
 				EAEC235E1D33ECFA00BDCA45 /* DBRecord.m in Sources */,
 				EACAF4251D2EC304001E1EDE /* DBLockBytePage.m in Sources */,
+				EAD013871E08942900AA7A43 /* DBWalReader.m in Sources */,
 				EACAF40D1D2EB0ED001E1EDE /* ViewController.m in Sources */,
 				EA9CE1711D4935B200A1D406 /* DBPayloadPageEnumerator.m in Sources */,
 				EACAF4351D2ECA33001E1EDE /* DBReader.m in Sources */,
@@ -297,9 +337,11 @@
 				EA9CE16E1D4933EE00A1D406 /* DBBtreeCellEnumerator.m in Sources */,
 				EACAF42B1D2EC31E001E1EDE /* DBPayloadPage.m in Sources */,
 				EA9CE1681D491C7500A1D406 /* DBBtreePageEnumerator.m in Sources */,
+				EAA2DBF61E09AF4400D4CF06 /* DBWalValidFrameEnumerator.m in Sources */,
 				EACAF4071D2EB0ED001E1EDE /* AppDelegate.m in Sources */,
 				EAEC23611D35858F00BDCA45 /* DBTableEnumerator.m in Sources */,
 				EA9CE1651D491BA900A1D406 /* DBFreelistLeafPage.m in Sources */,
+				EAD013841E0890E400AA7A43 /* DBWalFrameHeader.m in Sources */,
 				EA9CE1771D49411200A1D406 /* DBAllPageEnumerator.m in Sources */,
 				EACAF42E1D2EC329001E1EDE /* DBPointerMapPage.m in Sources */,
 			);
@@ -333,8 +375,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";
@@ -377,8 +421,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "-";

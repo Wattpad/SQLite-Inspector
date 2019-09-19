@@ -34,4 +34,9 @@
     return DBPageTypeFreelist;
 }
 
+- (BOOL)isCorrupt {
+    // Freelist leaf content is arbitrary and always ignored
+    return NO;
+}
+
 @end

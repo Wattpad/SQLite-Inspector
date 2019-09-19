@@ -17,6 +17,7 @@
 @class DBPayloadPage;
 @class DBPointerMapPage;
 @class DBTable;
+@class DBWalReader;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -76,6 +77,13 @@ NS_ASSUME_NONNULL_BEGIN
  *  All the indices in the database.
  */
 @property (nonatomic, strong, readonly) NSArray<DBIndex *> *indices;
+
+/**
+ *  Returns a reader for reading the associated write-ahead log (WAL).
+ *
+ *  @return A WAL reader, or nil if there is no valid WAL.
+ */
+- (nullable DBWalReader *)writeAheadLogReader;
 
 /**
  *  Returns the B-tree at the given page index. The behaviour is undefined if
